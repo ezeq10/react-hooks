@@ -1,76 +1,44 @@
-import React, { Fragment, useState } from 'react';
-import './App.css';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom'
+import {
+  Container,
+  CssBaseline,
+}  from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-import UserTable from './tables/UserTable';
-import AddUserForm from './forms/AddUserForm';
-import EditUserForm from './forms/EditUserForm';
+import AppRouter from "./components/AppRouter";
+import NavBar from './components/NavBar';
+
+const useStyles = makeStyles(theme => ({
+  '@global': {
+    body: {
+      //background: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.secondary.main} 90%)`,
+    },
+    ul: {
+      margin: 0,
+      padding: 0,
+    },
+    li: {
+      listStyle: 'none',
+    },
+  },
+  content: {
+    width: '100%',
+    padding: theme.spacing(8, 0, 0),
+  },
+}));
 
 const App = () => {
-  // Data
-  const usersData = [
-    { id: 1, name: 'Tania', username: 'floppydiskette' },
-    { id: 2, name: 'Craig', username: 'siliconeidolon' },
-    { id: 3, name: 'Ben', username: 'benisphere' },
-  ]
-
-  const initialFormState = { id: null, name: '', username: '' }
-
-  const [users, setUsers] = useState(usersData);
-  const [currentUser, setCurrentUser] = useState(initialFormState);
-  const [editing, setEditing] = useState(false);
-
-  const addUser = (user) => {  
-    user.id = users.length + 1;
-    setUsers([...users, user]);
-  }
-
-  const deleteUser = (id) => {
-    setUsers(users.filter(user => user.id !== id));
-  }
-
-  const editRow = (user) => {
-    setEditing(true);
-    setCurrentUser({ id: user.id, name: user.name, username: user.username });
-  }
-
-  const updateUser = (id, updatedUser) => {
-    setEditing(false)  
-    setUsers(users.map(user => (user.id === id ? updatedUser : user)))
-  }
+  const classes = useStyles();
 
   return (
-    <div className="container">
-      <h1>CRUD App with Hooks</h1>
-      <div className="flex-row">
-        <div className="flex-large">
-        { editing ? (
-          <Fragment>
-            <h2>Edit user</h2>
-            <EditUserForm
-              editing={editing}
-              setEditing={setEditing}
-              currentUser={currentUser}
-              updateUser={updateUser}
-            />
-          </Fragment>
-        ) : (
-          <Fragment>  
-            <h2>Add user</h2>
-            <AddUserForm 
-              addUser={addUser} />
-          </Fragment>    
-        )}    
-        </div>
-        <div className="flex-large">
-          <h2>View users</h2>
-          <UserTable 
-            users={users}
-            deleteUser={deleteUser}
-            editRow={editRow}
-          />
-        </div>
-      </div>
-    </div>
+    <BrowserRouter>  
+      <CssBaseline />
+        <NavBar />
+        <Container maxWidth="lg" component="main" className={classes.content}>
+          <AppRouter/>
+        </Container> 
+    </BrowserRouter>
   )
 };
 
