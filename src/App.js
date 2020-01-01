@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom'
 import {
   Container,
-  CssBaseline,
 }  from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -12,7 +11,11 @@ import NavBar from './components/NavBar';
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
-      //background: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.secondary.main} 90%)`,
+      fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+      fontSize: '14px',
+      lineHeight: '20px',
+      color: '#333',
+      backgroundColor: '#FFF',
     },
     ul: {
       margin: 0,
@@ -23,8 +26,10 @@ const useStyles = makeStyles(theme => ({
     },
   },
   content: {
-    width: '100%',
-    padding: theme.spacing(8, 0, 0),
+    float: 'left',
+    padding: theme.spacing(10, 10, 10, 10),
+    flexGrow: 1,
+    overflow: 'auto',
   },
 }));
 
@@ -32,12 +37,11 @@ const App = () => {
   const classes = useStyles();
 
   return (
-    <BrowserRouter>  
-      <CssBaseline />
-        <NavBar />
-        <Container maxWidth="lg" component="main" className={classes.content}>
-          <AppRouter/>
-        </Container> 
+    <BrowserRouter>
+      <NavBar />
+      <Container component="main" className={classes.content}>
+        <AppRouter/>
+      </Container> 
     </BrowserRouter>
   )
 };

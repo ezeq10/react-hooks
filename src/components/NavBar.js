@@ -18,23 +18,41 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: 20,
     paddingRight: 20,
   },
-  toolbar: {
-
-  },
   link: {
     color: '#999999',
     margin: theme.spacing(1, 1.5),
+    textDecoration: 'none',
     '&:hover': {
       color: '#FFF',
-      textDecoration: 'none',
     }
   },  
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
-    flexGrow: 1,
+  brand: {
+    color: '#999',
+    display: 'block',
+    marginLeft: '-20px',
+    padding: '10px 20px 10px',
+    fontSize: '20px',
+    fontWeigth: 200,
   },
+  nav: {
+    listStyle: 'none',
+  },
+  navList: {
+    position: 'relative',
+    display: 'block',
+    float: 'left',
+    left: 0,
+    margin: '0 10px 0 0',
+  },
+  navPullRight: {
+    float: 'right',
+    marginRight: 0,    
+  },
+  verticalDivider: {
+  }
 }));
 
 export default function NavBar () {
@@ -42,23 +60,32 @@ export default function NavBar () {
 
   return (
     <AppBar position="static" className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" className={classes.title}>
+      <Toolbar>
+        <Typography className={classes.brand}>
           TK2
         </Typography>
-        <Link to="/articles" className={classes.link}>
-          Artículos
-        </Link>
-        <Link to="/stock" className={classes.link}>
-          Stock
-        </Link>
-        <Link to="/tags" className={classes.link}>
-          Etiquetas
-        </Link>
-        <Button color="inherit">Login</Button>
+        <ul className={classes.nav}>
+          <Link to="/articles" className={classes.link}>
+            Artículos
+          </Link>
+          <Link to="/stock" className={classes.link}>
+            Stock
+          </Link>
+          <Link to="/tags" className={classes.link}>
+            Etiquetas
+          </Link>
+          <Link to="/tags" className={classes.link}>
+            Catálogo Digital
+          </Link>
+        </ul>
+        <ul className={classes.navPullRight}>
+          <li className={classes.verticalDivider}></li>
+          <li>
+            <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu">
+              <MenuIcon />
+            </IconButton>
+          </li>   
+        </ul>
       </Toolbar>
     </AppBar>    
   );
